@@ -4,7 +4,7 @@
 
 int my_printf(const char *, ...);
 void my_putchar(char c);
-void my_putstr(const char *str);
+void my_putstr(const char *string);
 void my_putnbr(int n);
 
 void my_putchar(char c) {
@@ -27,28 +27,28 @@ void my_putnbr(int n) {
     }
 }
 
-void my_putstr(const char *str) {
-    while (*str != '\0') {
-        my_putchar(*str);
-        ++str;
+void my_putstr(const char *string) {
+    while (*string != '\0' ) {
+        my_putchar(*string);
+        ++string;
     }
 }
 
-int my_printf(const char *format, ...) {
-
-    char *i;
+int my_printf(const char *str, ...) {
+   
+    int i;
     int int_char;
     char *arg_str;
     va_list ap;
-    va_start(ap, format);
+    va_start(ap, str);
     
-    for (i = format; *i != '\0'; i++) {
-        while (*i!= '%') {
-            my_putchar(*i);
+    for (i = 0; str[i] != '\0'; i++) {
+        while (str[i]!= '%') {
+            my_putchar(str[i]);
             i++;
         }
         
-        switch(*i) {
+        switch(str[i]) {
         case 's':
             arg_str = va_arg(ap, char *);
             my_putstr(arg_str);
@@ -61,19 +61,11 @@ int my_printf(const char *format, ...) {
             
         case 'i':
             int_char = va_arg(ap, int);
-            if (int_char<0) {
-                int_char = -int_char;
-                my_putchar('-');
-            }
             my_putnbr(int_char);
             break;
             
         case 'd':
             int_char = va_arg(ap, int);
-            if (int_char<0) {
-                int_char = -int_char;
-                my_putchar('-');
-            }
             my_putnbr(int_char);
             break;
             
