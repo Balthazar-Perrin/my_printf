@@ -1,6 +1,5 @@
 NAME    =   printf
-SRC     =   ./functions/my_printf.c \
-            main.c
+SRC     =   ./functions/my_printf.c
 
 CC      =   gcc
 CPPFLAGS	+= -I./include
@@ -17,13 +16,13 @@ my_printf_static	:	$(OBJ)
 			ar rc ./lib/libmy_printfs.a ./functions/*.o
 #           ranlib libmy_printf_uname -m-uname -s.a
 			ranlib ./lib/libmy_printfs.a
-			$(CC) main.o -L./lib -lmy_printfs -o s_printf
+			$(CC) main.c -L./lib -lmy_printfs -o s_printf
 
 
 my_printf_dynamic	:	$(OBJ)
 #           $(CC) -shared $(CFLAGS) -fpic -o libmy_printf_uname -m_uname -s.so $(OBJ)
 			$(CC) -shared $(CFLAGS) -fpic -o ./lib/libmy_printfd.so $(OBJ)
-			$(CC) main.o -L./lib -lmy_printfd -o d_printf
+			$(CC) main.c -L./lib -lmy_printfd -o d_printf
 
 clean   :
 			$(RM) $(OBJ)

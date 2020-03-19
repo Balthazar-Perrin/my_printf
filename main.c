@@ -4,8 +4,6 @@
 int my_printf(const char *, ...);
 
 int main(int argc, char **argv) {
-    argc++;
-    argv++;
-    my_printf("oui");
+    my_printf("%c", '\n');
     return 0;
 }
