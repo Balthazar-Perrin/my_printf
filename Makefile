@@ -1,6 +1,8 @@
 NAME    =   printf
 SRC     =   ./functions/my_printf.c
 
+NAMEM	=	$(shell uname -m)
+NAMES	=	$(shell uname -s)
 CC      =   gcc
 CPPFLAGS	+= -I./include
 CFLAGS  +=   -Wall -Wextra
@@ -12,17 +14,14 @@ $(NAME) :   my_printf_static my_printf_dynamic
 all     :   $(NAME)
 
 my_printf_static	:	$(OBJ)
-#           ar rc libmy_printf_uname -m-uname -s.a ./functions/*.o
-			ar rc ./lib/libmy_printfs.a ./functions/*.o
-#           ranlib libmy_printf_uname -m-uname -s.a
-			ranlib ./lib/libmy_printfs.a
-			$(CC) main.c -L./lib -lmy_printfs -o s_printf
+			ar rc ./lib/libmy_printfs$(NAMEM)-$(NAMES).a ./functions/*.o
+			ranlib ./lib/libmy_printfs$(NAMEM)-$(NAMES).a
+			$(CC) main.c -L./lib -lmy_printfs$(NAMEM)-$(NAMES) -o s_printf
 
 
 my_printf_dynamic	:	$(OBJ)
-#           $(CC) -shared $(CFLAGS) -fpic -o libmy_printf_uname -m_uname -s.so $(OBJ)
-			$(CC) -shared $(CFLAGS) -fpic -o ./lib/libmy_printfd.so $(OBJ)
-			$(CC) main.c -L./lib -lmy_printfd -o d_printf
+			$(CC) -shared $(CFLAGS) -fpic -o ./lib/libmy_printfd$(NAMEM)-$(NAMES).so $(OBJ)
+			$(CC) main.c -L./lib -Wl,-rpath=./lib -lmy_printfd$(NAMEM)-$(NAMES)  -o d_printf
 
 clean   :
 			$(RM) $(OBJ)

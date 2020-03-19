@@ -28,50 +28,59 @@ void my_putnbr(int n) {
 }
 
 void my_putstr(const char *string) {
-    while (*string != '\0' ) {
-        my_putchar(*string);
-        ++string;
+    int i = 0;
+    while (string[i] != '\0' ) {
+        my_putchar(string[i]);
+        ++i;
     }
+}
+
+int my_strlen(const char *str)
+{
+    int i = 0;
+    while (*str != '\0') {
+        ++i;
+        ++str;
+    }
+    return(i);
 }
 
 int my_printf(const char *str, ...) {
    
-    int i;
-    int int_char;
-    char *arg_str;
+    int i = 0;
     va_list ap;
     va_start(ap, str);
     
-    for (i = 0; str[i] != '\0'; i++) {
-        while (str[i]!= '%') {
+    while (str[i]) {
+        if (str[i] == '%') {
+            switch(str[i + 1]) {
+            case 's':
+                my_putstr(va_arg(ap, char*));
+                break;
+                
+            case 'c':
+                my_putchar(va_arg(ap, int));
+                break;
+                
+            case 'i':
+                my_putnbr(va_arg(ap, int));
+                break;
+                
+            case 'd':
+                my_putnbr(va_arg(ap, int));
+                break;
+                
+            case '%':
+                my_putchar('%');
+                break;
+            }
+            ++i;
+        }
+        else {
             my_putchar(str[i]);
-            i++;
         }
-        
-        switch(str[i]) {
-        case 's':
-            arg_str = va_arg(ap, char *);
-            my_putstr(arg_str);
-            break;
-            
-        case 'c':
-            int_char = va_arg(ap, int);
-            my_putchar(int_char);
-            break;
-            
-        case 'i':
-            int_char = va_arg(ap, int);
-            my_putnbr(int_char);
-            break;
-            
-        case 'd':
-            int_char = va_arg(ap, int);
-            my_putnbr(int_char);
-            break;
-            
-        }
+        ++i;
     }
-    
-    va_end(ap);       
+    va_end(ap);      
     return 0;
 }
