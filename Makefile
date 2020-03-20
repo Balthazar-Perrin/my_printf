@@ -32,9 +32,7 @@ my_printf_dynamic	:	$(OBJ)
 
 clean   :
 			$(RM) $(OBJ)
-			$(RM) ./functions/*~*
-			$(RM) *~*
-			$(RM) *#*
+			$(RM) ./functions/*~* ./*~* ./include/*~* 
 
 fclean  :   clean
 			$(RM) d_printf s_printf
