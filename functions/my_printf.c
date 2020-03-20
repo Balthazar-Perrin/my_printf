@@ -1,49 +1,9 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdbool.h>
+#include <../include/my.h>
 
-int my_printf(const char *, ...);
-void my_putchar(char c);
-void my_putstr(const char *string);
-void my_putnbr(int n);
-
-void my_putchar(char c) {
-    write(1, &c, 1);
-}
-
-void my_putnbr(int n) {
-    int dernier;
-    if (n < 0) {
-        n = n * (-1);
-        my_putchar('-');
-    }
-    if (n >= 0 && n <= 9) {
-        my_putchar(n + '0');
-    }
-    if (n >= 10) {
-        dernier = (n % 10);
-        my_putnbr(n / 10);
-        my_putchar(dernier + '0');
-    }
-}
-
-void my_putstr(const char *string) {
-    int i = 0;
-    while (string[i] != '\0' ) {
-        my_putchar(string[i]);
-        ++i;
-    }
-}
-
-int my_strlen(const char *str)
-{
-    int i = 0;
-    while (*str != '\0') {
-        ++i;
-        ++str;
-    }
-    return(i);
-}
 
 int my_printf(const char *str, ...) {
    
@@ -68,6 +28,22 @@ int my_printf(const char *str, ...) {
                 
             case 'd':
                 my_putnbr(va_arg(ap, int));
+                break;
+
+            case 'o':
+                my_putnbrbase(va_arg(ap, int), 8);
+                break;
+
+            case 'x':
+                my_putnbrbaselow(va_arg(ap, int), 16);
+                break;
+                
+            case 'X':
+                my_putnbrbase(va_arg(ap, int), 16);
+                break;
+                
+            case 'u':
+                my_putnbruns(va_arg(ap, unsigned int));
                 break;
                 
             case '%':

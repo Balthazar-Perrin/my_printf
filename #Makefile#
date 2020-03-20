@@ -7,7 +7,6 @@ SRC     =   ./functions/my_putchar.c \
 			./functions/my_putnbrbase.c \
 			./functions/my_putnbrbaselow.c \
 			./functions/my_printf.c
-
 NAMEM	=	$(shell uname -m)
 NAMES	=	$(shell uname -s)
 CC      =   gcc
@@ -41,5 +40,4 @@ fclean  :   clean
 			$(RM) ./lib/*
 
 re      :   fclean all
-
 .PHONY  :   all my_printf_static my_printf_dynamic clean fclean re 
