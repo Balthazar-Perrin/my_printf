@@ -12,7 +12,7 @@ NAMEM	=	$(shell uname -m)
 NAMES	=	$(shell uname -s)
 CC      =   gcc
 CPPFLAGS	+= -I./include
-CFLAGS  +=   -Wall -Wextra
+CFLAGS  +=   -Wall -Wextra -Werror
 OBJ     =   $(SRC:.c=.o)
 RM      =   rm -f
 
